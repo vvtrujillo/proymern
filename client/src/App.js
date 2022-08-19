@@ -13,6 +13,8 @@ function App() {
 
   const [datos, setDatos] = useState([]);
 
+
+  //Función para Crear nuevo Jugador
   const CrearJugador = (obj) => {
 
     return axios.post('http://localhost:8000/api/v1/jugadores', obj)
@@ -28,6 +30,8 @@ function App() {
       })
   }
 
+
+  //función para eliminar Jugador
   const Eliminar = (nombre, id) => {
     Swal.fire({title:'Eliminar', //Aca colocamos el titulo del mensaje
               text:`Esta seguro de eliminar el Jugador ${nombre}`, //acá colocamos el texto que va a decir en el mensaje
