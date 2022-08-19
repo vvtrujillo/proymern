@@ -17,12 +17,15 @@ function App() {
 
     return axios.post('http://localhost:8000/api/v1/jugadores', obj)
       .then(resp => {
-        setDatos([...datos, resp.datos.datosJug]);
-        return true;
-      }).catch(error => {
-        Swal.fire('No pudimos crear jugador', error, 'error');
-        return false;
-      });
+        if(!resp.data.error){
+          setDatos([...datos, resp.data.datosJug]);
+          Swal.fire('','Se ha creado el jugador','success');
+          return true;
+        }else{
+          Swal.fire('','No pudimos crear jugador', 'error');
+          return false;
+        }        
+      })
   }
 
   const Eliminar = (nombre, id) => {
@@ -30,8 +33,8 @@ function App() {
               text:`Esta seguro de eliminar el Jugador ${nombre}`, //acá colocamos el texto que va a decir en el mensaje
               icon:'question', //aca indicamos el icono del mensaje
               showCancelButton: true, //indicamos si vamos a mostrar el boton "Cancelar" en el mensaje
-              confirmButtonText: 'Si, Eliminar' //Texto del boton confirmar la acción del mensaje
-              
+              confirmButtonText: 'Si, Eliminar', //Texto del boton confirmar la acción del mensaje
+              confirmButtonColor: '#DF362D'
             })
             .then(resp => {
               if(resp.isConfirmed){
@@ -61,12 +64,13 @@ function App() {
 
   return (
     <Container>
-      <Main></Main>
-      <Listado datos={datos} EliminarFn={Eliminar}></Listado>
+      <Main></Main>      
       <Col>
+        <Link to={'/mostrar'}>Mostrar jugador</Link>
         <Link to={'/nuevo'}>Nuevo Jugador</Link>
       </Col>
       <Routes>
+        <Route path='mostrar' element={<Listado datos={datos} EliminarFn={Eliminar}></Listado>}></Route>
         <Route path='nuevo' element={<FormCrearJugador CrearJugadorFn={CrearJugador}></FormCrearJugador>}></Route>
       </Routes>
     </Container>

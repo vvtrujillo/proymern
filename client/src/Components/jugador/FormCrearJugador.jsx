@@ -11,12 +11,17 @@ const FormCrearJugador = ({CrearJugadorFn}) => {
 
     const [formulario, setFormulario] = useState([estadoInicial]);
 
-    const guardarJugador = async e => {
-        e.preventDefault();
-        let resp = true;
+    const actualizarFormulario = ({target: {name, value}}) => {
+        setFormulario({
+            ...formulario,
+            [name]: value
+        })
+    }
 
-        resp = await CrearJugadorFn(formulario);
-        
+    const guardarJugador = async e => {
+        e.preventDefault();        
+        await CrearJugadorFn(formulario);
+        setFormulario(estadoInicial);
     }
 
     return(
@@ -25,15 +30,14 @@ const FormCrearJugador = ({CrearJugadorFn}) => {
                 <Form onSubmit={guardarJugador}>
                     <FormGroup>
                         <Label name='nombre'>Nombre:</Label>
-                        <Input type='text' name='nombre' placeholder='Nombre...' required minLength={2}></Input>
+                        <Input type='text' name='nombre' placeholder='Nombre...' required minLength={2} value={formulario.nombre} onChange={actualizarFormulario}></Input>
                     </FormGroup>
                     <FormGroup>
                         <Label name='nombre'>Posición:</Label>
-                        <Input type='text' name='posicion' placeholder='Posición...' maxLength={30}></Input>
+                        <Input type='text' name='posicion' placeholder='Posición...' maxLength={30} value={formulario.posicion} onChange={actualizarFormulario}></Input>
                     </FormGroup>
                     <Button color='primary' type='submit'>Crear</Button>
-                </Form>
-                <hr></hr>
+                </Form>                
             </Container>
         </React.Fragment>        
     )
