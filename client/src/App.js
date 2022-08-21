@@ -8,10 +8,12 @@ import Swal from 'sweetalert2';
 import Listado from './Components/jugador/Listado'
 import {Routes, Route, Link } from 'react-router-dom';
 import FormCrearJugador from './Components/jugador/FormCrearJugador';
+import FormEditarJugador from './Components/jugador/FormEditaJugador';
 
 function App() {
 
   const [datos, setDatos] = useState([]);
+  const [recargar, setRecargar] = useState(false);
 
 
   //Función para Crear nuevo Jugador
@@ -30,8 +32,20 @@ function App() {
       })
   }
 
+  const EditarJugador = (jugador) => {
+    return axios.put(`http://localhost:8000/api/v1/jugadores/${jugador._id}`, jugador)
+        .then(resp => {
+            if(!resp.data.error) {
+                setRecargar(!recargar);
+                Swal.fire('','Se ha actualizado los datos del Jugador','success');
+                return true;
+            } else {
+                Swal.fire('Ooops!!!', resp.data.mensaje, 'error');
+                return false;
+            }
+        })
+}
 
-  //función para eliminar Jugador
   const Eliminar = (nombre, id) => {
     Swal.fire({title:'Eliminar', //Aca colocamos el titulo del mensaje
               text:`Esta seguro de eliminar el Jugador ${nombre}`, //acá colocamos el texto que va a decir en el mensaje
@@ -71,11 +85,12 @@ function App() {
       <Main></Main>      
       <Col>
         <Link to={'/mostrar'}>Mostrar jugador</Link>
-        <Link to={'/nuevo'}>Nuevo Jugador</Link>
+        <Link to={'/nuevo'}>Nuevo Jugador</Link>        
       </Col>
       <Routes>
         <Route path='mostrar' element={<Listado datos={datos} EliminarFn={Eliminar}></Listado>}></Route>
         <Route path='nuevo' element={<FormCrearJugador CrearJugadorFn={CrearJugador}></FormCrearJugador>}></Route>
+        <Route path='editar/:id' element={<FormCrearJugador editarJugadorFn={EditarJugador}></FormCrearJugador>}></Route>
       </Routes>
     </Container>
   );
