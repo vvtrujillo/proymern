@@ -10,7 +10,7 @@ const JugadorAdmin = () => {
     return(
         <React.Fragment>
             <Router>
-                <Route path="Listado" element={<Listado datos={datos}></Listado>}></Route>
+                <Route path="Listado" element={<Listado datos={datos}></Listado>}></Route>                
                 <Col></Col>
             </Router>
         </React.Fragment>

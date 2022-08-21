@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -31,9 +31,11 @@ const FormCrearJugador = ({CrearJugadorFn, editarJugadorFn}) => {
 
         if(!id){
             respuesta = await CrearJugadorFn(formulario);
+            console.log('Crea Jugador', formulario);
             setFormulario(estadoInicial);
         } else {
             respuesta = await editarJugadorFn(formulario);
+            console.log('Update Jugador', formulario);
             setFormulario(estadoInicial);
         }
 
@@ -56,7 +58,7 @@ const FormCrearJugador = ({CrearJugadorFn, editarJugadorFn}) => {
     }, []); 
 
     return(
-        <React.Fragment>
+        <React.Fragment>            
             <Container>
                 <Form onSubmit={guardarJugador}>
                     <FormGroup>

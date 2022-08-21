@@ -10,11 +10,9 @@ const dataUpdate = {
 
 const Listado = ({datos, EliminarFn}) => {
 
-
-
     return(
 
-        <Container>
+        <Container>            
             <Table striped bordered hover>
                 <thead>
                     <tr>

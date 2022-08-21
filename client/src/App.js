@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import {Col, Container} from 'reactstrap';
+import {Col, Container, Row} from 'reactstrap';
 import Main from './Components/Main';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -72,7 +72,7 @@ function App() {
     axios.get('http://localhost:8000/api/v1/jugadores')
       .then(resp => {
         if(!resp.data.error){
-          //console.log(resp.data.datosJug)
+          console.log('Use Effect para traer los jugadores',resp.data.datosJug)
           setDatos(resp.data.datosJug); 
         }else {
           Swal.fire('Ooops!!!', resp.data.mensaje, 'error');
@@ -83,14 +83,15 @@ function App() {
   return (
     <Container>
       <Main></Main>      
-      <Col>
-        <Link to={'/mostrar'}>Mostrar jugador</Link>
-        <Link to={'/nuevo'}>Nuevo Jugador</Link>        
-      </Col>
+      <Row>
+        <Col><Link to={'/mostrar'}>Mostrar jugador</Link></Col>
+        <Col><Link to={'/nuevo'}>Nuevo Jugador</Link></Col>
+        <Col><Link to='/'>Home</Link></Col>
+      </Row>
       <Routes>
         <Route path='mostrar' element={<Listado datos={datos} EliminarFn={Eliminar}></Listado>}></Route>
         <Route path='nuevo' element={<FormCrearJugador CrearJugadorFn={CrearJugador}></FormCrearJugador>}></Route>
-        <Route path='editar/:id' element={<FormCrearJugador editarJugadorFn={EditarJugador}></FormCrearJugador>}></Route>
+        <Route path='editar/:id' element={<FormCrearJugador editarJugadorFn={EditarJugador}></FormCrearJugador>}></Route>        
       </Routes>
     </Container>
   );
