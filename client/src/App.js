@@ -32,8 +32,8 @@ function App() {
       })
   }
 
-  const EditarJugador = (jugador) => {
-    return axios.put(`http://localhost:8000/api/v1/jugadores/${jugador._id}`, jugador)
+  const EditarJugador = (obj) => {
+    return axios.put(`http://localhost:8000/api/v1/jugadores/${obj._id}`, obj)
         .then(resp => {
             if(!resp.data.error) {
                 setRecargar(!recargar);
