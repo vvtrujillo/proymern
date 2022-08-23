@@ -41,7 +41,7 @@ const FormCrearJugador = ({CrearJugadorFn, editarJugadorFn}) => {
 
         if(respuesta){            
             navigate('/mostrar');
-        }                
+        }
     }
 
     useEffect(() => {

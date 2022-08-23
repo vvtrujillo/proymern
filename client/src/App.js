@@ -13,7 +13,7 @@ import FormEditarJugador from './Components/jugador/FormEditaJugador';
 function App() {
 
   const [datos, setDatos] = useState([]);
-  const [recargar, setRecargar] = useState(false);
+  const [recargar, setRecargar] = useState(false); //Para Actualizar los datos de los jugadores
 
 
   //Función para Crear nuevo Jugador
@@ -34,9 +34,10 @@ function App() {
 
   const EditarJugador = (obj) => {
     return axios.put(`http://localhost:8000/api/v1/jugadores/${obj._id}`, obj)
-        .then(resp => {
-            if(!resp.data.error) {
-                setRecargar(!recargar);
+        .then(resp => {         
+         
+            if(!resp.data.error) {                
+                setRecargar(!recargar);                
                 Swal.fire('','Se ha actualizado los datos del Jugador','success');
                 return true;
             } else {
@@ -78,7 +79,7 @@ function App() {
           Swal.fire('Ooops!!!', resp.data.mensaje, 'error');
         }        
       })
-  }, [])
+  }, [recargar])
 
   return (
     <Container>
