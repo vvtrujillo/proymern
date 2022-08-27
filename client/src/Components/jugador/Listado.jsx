@@ -2,6 +2,8 @@ import { Link, Route, Router, Routes } from "react-router-dom";
 import { Button, Container, Table, Modal, ModalBody, Form, Label,FormGroup,Input,ModalHeader } from "reactstrap";
 import FormEditaJugador from '../jugador/FormEditaJugador';
 import { useState, useRef } from "react";
+import {RiDeleteBin6Line} from 'react-icons/ri'
+import {FaRegEdit} from 'react-icons/fa'
 
 const dataUpdate = {
     nombre:'',
@@ -29,9 +31,9 @@ const Listado = ({datos, EliminarFn}) => {
                                 <td>{j.posicion}</td>
                                 <td>
                                     <Link to={`/editar/${j._id}`}>
-                                        <Button color="primary" >Editar</Button>
+                                        <FaRegEdit></FaRegEdit>
                                     </Link>                                    
-                                    <Button color="danger" onClick={e => EliminarFn(j.nombre, j._id)}>Eliminar</Button>
+                                    <RiDeleteBin6Line color="red" onClick={e => EliminarFn(j.nombre, j._id)} style={{cursor: "pointer"}}></RiDeleteBin6Line>
                                 </td>
                             </tr>
                         )
